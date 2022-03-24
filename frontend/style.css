@@ -1,0 +1,111 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background: #fd6f46;
+    /* height: 100vh; */
+    margin: 0;
+    padding: 0;
+}
+
+.box-container {
+    position: absolute;
+    display: flex;
+    width: auto;
+    height: 100vh;
+    flex-flow: column wrap;
+    align-items: flex-start;
+    padding: 20px 20px 0 20px;
+    /* width: min-content; */
+    /* this background is color is only set for development and will be discarded in production */
+    /* background-color:blueviolet; */
+    gap: 10px;
+}
+
+.box-header {
+    display: flex;
+    justify-content: space-between;
+    font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
+}
+
+.box-header-button {
+    border: 0;
+    background: #dfe3e6;
+    border-radius: 3px;
+    font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
+}
+.box-header-button:hover {
+    background: #b9bdc0;
+}
+
+/* scroll vertically on smartphone */
+@media screen and (max-width: 480px) {
+    body {
+        background: #3b13cc;
+    }
+    .box-container {
+        height: auto;
+        flex-flow: column;
+        width: 400px;
+        margin: auto;
+    }
+}
+
+/* layout for tablet should be similar when in portrait mode
+    in landscape mode there should be more height for display
+    height default set to  140 viewport height
+    should be set according to the medium height of all boxed after learning about how javascript works*/
+
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+    body {
+        background: #db0f97;
+    }
+    .box-container {
+        height: 140vh;
+    }
+}
+.box {
+    background: #dfe3e6;
+    /* height: 2rem; */
+    border: none;
+    border-radius: 3px;
+    width: 400px;
+    max-width: 90vw;
+    height: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    /* box-shadow: 3px 3px 3px; */
+    padding: 6px 8px 12px 8px;
+    font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
+    overflow: hidden;
+}
+
+.box-title {
+    color: black;
+    padding: 6px 36px 8px 4px;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.item {
+    display: flex;
+    background: white;
+    border-radius: 3px;
+    min-height: 34px;
+    box-shadow: 0 1px 0 #ccc;
+    border: 1px solid white;
+}
+
+.item:hover {
+    background: rgb(238, 238, 238);
+}
+.item-title {
+    padding: 6px 8px;
+}
