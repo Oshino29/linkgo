@@ -3,7 +3,9 @@ package main
 import (
 	"net/http"
 	"strings"
+
 	"github.com/gin-gonic/gin"
+	"github.com/gin-contrib/cors"
 )
 
 type item struct {
@@ -37,6 +39,8 @@ var items = []item{
 
 func main() {
 	router := gin.Default()
+	router.Use(cors.Default())
+	
 	router.GET("/items", getItems)
 	router.GET("/items/:keywords", getItemByTitle)
 	router.POST("/items", postItems)
