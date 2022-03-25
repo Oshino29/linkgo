@@ -1,5 +1,5 @@
 * {
-    box-sizing: border-box;
+    card-sizing: border-card;
 }
 
 body {
@@ -9,7 +9,7 @@ body {
     padding: 0;
 }
 
-.box-container {
+.card-container {
     position: absolute;
     display: flex;
     width: auto;
@@ -23,19 +23,19 @@ body {
     gap: 10px;
 }
 
-.box-header {
+.card-header {
     display: flex;
     justify-content: space-between;
     font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
 }
 
-.box-header-button {
+.card-header-button {
     border: 0;
     background: #dfe3e6;
     border-radius: 3px;
     font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
 }
-.box-header-button:hover {
+.card-header-button:hover {
     background: #b9bdc0;
 }
 
@@ -44,7 +44,7 @@ body {
     body {
         background: #3b13cc;
     }
-    .box-container {
+    .card-container {
         height: auto;
         flex-flow: column;
         width: 400px;
@@ -55,17 +55,17 @@ body {
 /* layout for tablet should be similar when in portrait mode
     in landscape mode there should be more height for display
     height default set to  140 viewport height
-    should be set according to the medium height of all boxed after learning about how javascript works*/
+    should be set according to the medium height of all carded after learning about how javascript works*/
 
 @media screen and (orientation: landscape) and (max-width: 1024px) {
     body {
         background: #db0f97;
     }
-    .box-container {
+    .card-container {
         height: 140vh;
     }
 }
-.box {
+.card {
     background: #dfe3e6;
     /* height: 2rem; */
     border: none;
@@ -77,13 +77,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 5px;
-    /* box-shadow: 3px 3px 3px; */
+    /* card-shadow: 3px 3px 3px; */
     padding: 6px 8px 12px 8px;
     font-family: Museo Sans, Helvetica Neue, Arial, Helvetica, sans-serif;
     overflow: hidden;
 }
 
-.box-title {
+.card-title {
     color: black;
     padding: 6px 36px 8px 4px;
 }
@@ -99,7 +99,7 @@ body {
     background: white;
     border-radius: 3px;
     min-height: 34px;
-    box-shadow: 0 1px 0 #ccc;
+    card-shadow: 0 1px 0 #ccc;
     border: 1px solid white;
 }
 
