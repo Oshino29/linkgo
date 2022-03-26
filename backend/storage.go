@@ -47,25 +47,34 @@ func (s *Storage) Init() {
 	}
 }
 
-func (s *Storage) saveItem(item Item) int64 {
+func (s *Storage) saveItem(item Item) (int64, error) {
 	// insert information into table Item
 	result, err := s.db.Exec(
 		"INSERT INTO Item (Title, Url, Desc) VALUES (?, ?, ?)",
 		item.Title, item.Url, item.Description)
-	if err != nil { log.Fatalf("error when save item: %s",err.Error()) }
+	if err != nil { 
+		log.Printf("error when save item: %s",err.Error())
+		return item.ID, err 
+	}
 
 	// get id of inserted item
 	item.ID, err = result.LastInsertId()
-	if err != nil { log.Fatalf("error when recive id of saved item: %s", err.Error())}
+	if err != nil { 
+		log.Printf("error when recive id of saved item: %s", err.Error())
+		return item.ID, err
+	}
 
 	// insert tag-item relation into table tag 
-	for tag := range item.Tags {
+	for _, tag := range item.Tags {
 		_, err = s.db.Exec(
 			"INSERT INTO Tag (Name, ItemID) VALUES (?, ?)",
 			tag, item.ID)
-		if err != nil { log.Fatalf("error when save item tags: %s", err.Error())}
+		if err != nil { 
+			log.Printf("error when save item tags: %s", err.Error())
+			return item.ID, err
+		}
 	}
-	return item.ID
+	return item.ID, nil
 }
 
 // load all items from database and return a map with itemID as key
@@ -77,7 +86,7 @@ func (s *Storage) loadAllItems() *Items{
 	// duplicated items in rows may encounter if the item has multiple tags
 	query := `
 			select Item.ItemID, Item.Title, Item.Url, Item.Desc, Tag.Name from Item
-			left join Tag on Tag.ItemID = Item.ItemID
+			left join Tag on Tag.ItemID = Item.ItemID;
 			`
 	rows, err := s.db.Query(query)
 	if err != nil {
@@ -88,8 +97,12 @@ func (s *Storage) loadAllItems() *Items{
 	// iterate through queried rows
 	var tag string
 	for rows.Next() {
+		// init variable item for loop
+		item = Item{}
+
 		// scan rows to item and a temp tag variable
-		rows.Scan(&item.ID, &item.Title, &item.Url, &item.Description, &tag)
+		err := rows.Scan(&item.ID, &item.Title, &item.Url, &item.Description, &tag)
+		if err != nil { log.Fatalf("error occured when scan item:\n\t%s\n", err.Error())}
 		if itemInMap, ok := items[item.ID]; !ok {
 			// assign item to map[item.ID] if item not found in map
 			item.Tags = append(item.Tags, tag)
